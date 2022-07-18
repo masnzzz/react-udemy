@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import ColorfulMessage from './components/ColorfulMessage';
 
 const App = () => {
@@ -16,14 +17,19 @@ const App = () => {
         setFaceShowFlag(!faceShowFlag);
     };
 
-    if (num > 0) {
-        // 3の倍数だけ顔が出る
-        if (num % 3 === 0) {
-            faceShowFlag || setFaceShowFlag(true);
-        } else {
-            faceShowFlag && setFaceShowFlag(false);
+    // num に変化があった時だけ3の倍数処理を実行する
+    useEffect(() => {
+        console.log('useEffect!');
+        if (num > 0) {
+            // 3の倍数だけ顔が出る
+            if (num % 3 === 0) {
+                faceShowFlag || setFaceShowFlag(true);
+            } else {
+                faceShowFlag && setFaceShowFlag(false);
+            }
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [num]);
 
     return (
         <>
